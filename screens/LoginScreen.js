@@ -7,7 +7,7 @@ export const LoginScreen = props => {
 
     return (
         <View>
-
+            
         </View>
     );
 }
