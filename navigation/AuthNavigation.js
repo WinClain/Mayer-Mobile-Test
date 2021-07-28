@@ -1,20 +1,32 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import LoginScreen from '../screens/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen';
+import LoginScreen from '../screens/AuthScreens/LoginScreen';
+import RegisterScreen from '../screens/AuthScreens/RegisterScreen';
+import HomeScreen from '../screens/HomeScreen';
 
-export const AuthNavigation = () => {
+export const AuthNavigation = props => {
     const Stack = createStackNavigator();
 
     return (
         <NavigationContainer>
+            {props.isSignedIn == true ? 
             <Stack.Navigator screenOptions={{
-                headerShown:false
+                headerLeft:null,
+                headerTitleAlign:'center',
+                headerTitleStyle:{
+                    fontFamily:'bold',
+                    fontSize:24,
+                },
             }}>
                 <Stack.Screen name='Login' component={LoginScreen} />
                 <Stack.Screen name='Register' component={RegisterScreen} />
             </Stack.Navigator>
+            : 
+            <Stack.Navigator>
+                <Stack.Screen name='Home' component={HomeScreen} />
+            </Stack.Navigator>
+            }
         </NavigationContainer>
     )
 }

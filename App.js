@@ -16,11 +16,21 @@ const loadAsync = () => {
 
 export default function App() {
     const [dataLoad,setDataLoad] = useState(false);
+    const [userSignedIn,setUserSignedIn] = useState(true);
+
     const appTheme = extendTheme({
         components:{
             Text:{
                 baseStyle:{
                     fontFamily:'medium'
+                }
+            },
+            Button:{
+                defaultProps:{
+                    variant:'ghost'
+                },
+                baseStyle:{
+                    padding:2
                 }
             }
         }
@@ -31,7 +41,7 @@ export default function App() {
     }
     return (
         <NativeBaseProvider theme={appTheme}>
-            <AuthNavigation />
+            <AuthNavigation isSignedIn={userSignedIn}/>
         </NativeBaseProvider>
     );
 }
