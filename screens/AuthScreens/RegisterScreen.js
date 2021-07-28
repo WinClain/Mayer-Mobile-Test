@@ -5,7 +5,7 @@ import Size from '../../constants/Size'
 export const RegisterScreen = props => {
     const [formInvalid, setFormInvalid] = useState(false);
     const [emailValue, setEmailValue] = useState('');
-    const [nameValue, setnameValue] = useState('');
+    const [nameValue, setNameValue] = useState('');
     const [emailInvalid, setEmailInvalid] = useState(false);
     const [nameInvalid, setNameInvalid] = useState(false);
     const [emailInvalidText,setEmailInvalidText] = useState('');
@@ -27,9 +27,9 @@ export const RegisterScreen = props => {
     }
 
     const vaildationName = () => {
-        if(nameValue < 6 ){
+        if(nameValue < 1 ){
             setNameInvalid(true);
-            setNameInvalidText('name must contain at least 8 characters')
+            setNameInvalidText('Name is required')
         }else{
             setNameInvalid(false);
         }
@@ -41,14 +41,22 @@ export const RegisterScreen = props => {
         }}>
             <Center py={10} flex={1} bg='green.500'>
                 <View bg='white' width={screen.width > 600 ? 400 : 300} shadow={8} px={6} py={5} rounded='lg'>
-                    <FormControl >
+                    <FormControl isInvalid={nameInvalid}>
                         <FormControl.Label>Name</FormControl.Label>
-                        <Input placeholder='name' />
+                        <Input 
+                        placeholder='name' 
+                        onChangeText={text=>setNameValue(text)}
+                        onEndEditing={vaildationName}
+                        />
                         <FormControl.ErrorMessage>{nameInvalidText}</FormControl.ErrorMessage>
                     </FormControl>
-                    <FormControl my={4}>
+                    <FormControl my={4} isInvalid={emailInvalid}>
                         <FormControl.Label>Email</FormControl.Label>
-                        <Input placeholder='email' />
+                        <Input 
+                        placeholder='email' 
+                        onChangeText={text=>setEmailValue(text)}
+                        onEndEditing={vaildationEmail}
+                        />
                         <FormControl.ErrorMessage>{emailInvalidText}</FormControl.ErrorMessage>
                     </FormControl>
                     <View flexDirection='row' justifyContent='space-between'>
