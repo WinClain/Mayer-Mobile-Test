@@ -61,7 +61,7 @@ export const RegisterScreen = props => {
                     </FormControl>
                     <View flexDirection='row' justifyContent='space-between'>
                         <Button>Register</Button>
-                        <Button colorScheme='dark' onPress={()=>props.navigation.navigate('Login')}>Login</Button>
+                        <Button colorScheme='dark' onPress={()=>props.navigation.replace('Login')}>Login</Button>
                     </View>
                 </View>
             </Center>

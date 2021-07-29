@@ -60,8 +60,8 @@ export const LoginScreen = props => {
                         <FormControl.ErrorMessage>{passwordInvalidText}</FormControl.ErrorMessage>
                     </FormControl>
                     <View flexDirection='row' justifyContent='space-between'>
-                        <Button>Login</Button>
-                        <Button colorScheme='dark' onPress={()=>props.navigation.navigate('Register')}>Register</Button>
+                        <Button colorScheme='green'>Login</Button>
+                        <Button colorScheme='dark' onPress={()=>props.navigation.replace('Register')}>Register</Button>
                     </View>
                 </View>
             </Center>
