@@ -1,10 +1,11 @@
-import React,{useState,useEffect} from 'react';
+
+import React,{useEffect, useState} from 'react';
 import { Text, View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
 import Size from '../../constants/Size'
-import { NerrowBig } from '../../constants/Nerrow';
+import * as AuthActions from '../../store/actions/auth';
 
 export const LoginScreen = props => {
-    const [formInvalid, setFormInvalid] = useState(false);
+    const [formInvalid, setFormInvalid] = useState(true);
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [emailInvalid, setEmailInvalid] = useState(false);
@@ -38,6 +39,7 @@ export const LoginScreen = props => {
     }
 
     useEffect(() => {
+
         if(!emailInvalid && !passwordInvalid){
             setFormInvalid(false);
         }else{
@@ -70,8 +72,16 @@ export const LoginScreen = props => {
                         <FormControl.ErrorMessage>{passwordInvalidText}</FormControl.ErrorMessage>
                     </FormControl>
                     <View flexDirection='row' justifyContent='space-between'>
-                        <Button colorScheme='green' disabled={formInvalid}>Login</Button>
-                        <Button colorScheme='dark' onPress={()=>props.navigation.replace('Register')}>Register</Button>
+                        <Button 
+                        disabled={formInvalid}
+                        colorScheme='green' 
+                        onPress={()=>AuthActions.signIn(emailValue,passwordValue)}
+                        >Login</Button>
+
+                        <Button 
+                        colorScheme='dark' 
+                        onPress={()=>props.navigation.replace('Register')}
+                        >Register</Button>
                     </View>
                 </View>
             </Center>
