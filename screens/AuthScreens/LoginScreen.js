@@ -1,6 +1,7 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { Text, View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
 import Size from '../../constants/Size'
+import { NerrowBig } from '../../constants/Nerrow';
 
 export const LoginScreen = props => {
     const [formInvalid, setFormInvalid] = useState(false);
@@ -11,7 +12,8 @@ export const LoginScreen = props => {
     const [emailInvalidText,setEmailInvalidText] = useState('');
     const [passwordInvalidText,setPasswordInvalidText] = useState('');
 
-    const screen = Size();
+    let screen = Size();
+    let nerrow = NerrowBig();
 
     const vaildationEmail = () => {
         if(emailValue < 1 || !emailValue.includes('@') || !emailValue.includes('.')){
@@ -34,6 +36,14 @@ export const LoginScreen = props => {
             setPasswordInvalid(false);
         }
     }
+
+    useEffect(() => {
+        if(!emailInvalid && !passwordInvalid){
+            setFormInvalid(false);
+        }else{
+            setFormInvalid(true);
+        }
+    }, [emailInvalid,passwordInvalid]);
 
     return (
         <ScrollView contentContainerStyle={{
@@ -60,7 +70,7 @@ export const LoginScreen = props => {
                         <FormControl.ErrorMessage>{passwordInvalidText}</FormControl.ErrorMessage>
                     </FormControl>
                     <View flexDirection='row' justifyContent='space-between'>
-                        <Button colorScheme='green'>Login</Button>
+                        <Button colorScheme='green' disabled={formInvalid}>Login</Button>
                         <Button colorScheme='dark' onPress={()=>props.navigation.replace('Register')}>Register</Button>
                     </View>
                 </View>

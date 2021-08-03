@@ -1,6 +1,7 @@
-import React,{useState} from 'react';
-import { Text, View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
+import React,{useState,useEffect} from 'react';
+import { View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
 import Size from '../../constants/Size'
+import { NerrowBig } from '../../constants/Nerrow';
 
 export const RegisterScreen = props => {
     const [formInvalid, setFormInvalid] = useState(false);
@@ -11,7 +12,8 @@ export const RegisterScreen = props => {
     const [emailInvalidText,setEmailInvalidText] = useState('');
     const [nameInvalidText,setNameInvalidText] = useState('');
 
-    const screen = Size();
+    let screen = Size();
+    let nerrow = NerrowBig();
 
     const vaildationEmail = () => {
         if(emailValue < 1 || !emailValue.includes('@') || !emailValue.includes('.')){
@@ -35,12 +37,20 @@ export const RegisterScreen = props => {
         }
     }
 
+    useEffect(() => {
+        if(!emailInvalid && !nameInvalid){
+            setFormInvalid(false);
+        }else{
+            setFormInvalid(true);
+        }
+    }, [emailInvalid,nameInvalid]);
+
     return (
         <ScrollView contentContainerStyle={{
             flexGrow:1,
         }}>
             <Center py={10} flex={1} bg='green.500'>
-                <View bg='white' width={screen.width > 600 ? 400 : 300} shadow={8} px={6} py={5} rounded='lg'>
+                <View bg='white' width={nerrow ? 300 : 400} shadow={8} px={6} py={5} rounded='lg'>
                     <FormControl isInvalid={nameInvalid}>
                         <FormControl.Label>Name</FormControl.Label>
                         <Input 
@@ -60,7 +70,7 @@ export const RegisterScreen = props => {
                         <FormControl.ErrorMessage>{emailInvalidText}</FormControl.ErrorMessage>
                     </FormControl>
                     <View flexDirection='row' justifyContent='space-between'>
-                        <Button>Register</Button>
+                        <Button disabled={formInvalid}>Register</Button>
                         <Button colorScheme='dark' onPress={()=>props.navigation.replace('Login')}>Login</Button>
                     </View>
                 </View>
