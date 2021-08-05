@@ -1,4 +1,4 @@
-import React,{useCallback, useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Text, View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
 import Size from '../../constants/Size'
 import * as AuthActions from '../../store/actions/auth';
@@ -12,7 +12,8 @@ export const LoginScreen = props => {
     const [emailInvalidText,setEmailInvalidText] = useState('');
     const [passwordInvalidText,setPasswordInvalidText] = useState('');
 
-    const screen = Size();
+    let screen = Size();
+    let nerrow = NerrowBig();
 
     const vaildationEmail = () => {
         if(emailValue < 1 || !emailValue.includes('@') || !emailValue.includes('.')){
@@ -36,13 +37,14 @@ export const LoginScreen = props => {
         }
     }
 
-    useCallback(()=>{
+
+    useEffect(() => {
         if(!emailInvalid && !passwordInvalid){
             setFormInvalid(false);
         }else{
             setFormInvalid(true);
         }
-    },[emailInvalid,passwordInvalid]);
+    }, [emailInvalid,passwordInvalid]);
 
     return (
         <ScrollView contentContainerStyle={{

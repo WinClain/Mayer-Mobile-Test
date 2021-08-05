@@ -1,7 +1,7 @@
-import React,{useState, useCallback} from 'react';
-import { Text, View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
+import React,{useState,useEffect} from 'react';
+import { View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
 import Size from '../../constants/Size'
-import * as AuthActions from '../../store/actions/auth';
+import { NerrowBig } from '../../constants/Nerrow';
 
 export const RegisterScreen = props => {
     const [emailValue, setEmailValue] = useState('');
@@ -11,7 +11,8 @@ export const RegisterScreen = props => {
     const [emailInvalidText,setEmailInvalidText] = useState('');
     const [nameInvalidText,setNameInvalidText] = useState('');
 
-    const screen = Size();
+    let screen = Size();
+    let nerrow = NerrowBig();
 
     const vaildationEmail = () => {
         if(emailValue < 1 || !emailValue.includes('@') || !emailValue.includes('.')){
@@ -45,12 +46,13 @@ export const RegisterScreen = props => {
         }
     };
 
+
     return (
         <ScrollView contentContainerStyle={{
             flexGrow:1,
         }}>
             <Center py={10} flex={1} bg='green.500'>
-                <View bg='white' width={screen.width > 600 ? 400 : 300} shadow={8} px={6} py={5} rounded='lg'>
+                <View bg='white' width={nerrow ? 300 : 400} shadow={8} px={6} py={5} rounded='lg'>
                     <FormControl isInvalid={nameInvalid}>
                         <FormControl.Label>Name</FormControl.Label>
                         <Input 
