@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React,{useCallback, useState} from 'react';
 import { Text, View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
 import Size from '../../constants/Size'
 import * as AuthActions from '../../store/actions/auth';
@@ -36,7 +36,7 @@ export const LoginScreen = props => {
         }
     }
 
-    useEffect(()=>{
+    useCallback(()=>{
         if(!emailInvalid && !passwordInvalid){
             setFormInvalid(false);
         }else{

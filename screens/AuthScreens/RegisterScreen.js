@@ -1,9 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState, useCallback} from 'react';
 import { Text, View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
 import Size from '../../constants/Size'
+import * as AuthActions from '../../store/actions/auth';
 
 export const RegisterScreen = props => {
-    const [formInvalid, setFormInvalid] = useState(false);
     const [emailValue, setEmailValue] = useState('');
     const [nameValue, setNameValue] = useState('');
     const [emailInvalid, setEmailInvalid] = useState(false);
@@ -35,6 +35,16 @@ export const RegisterScreen = props => {
         }
     }
 
+    const enter = () => {
+        vaildationEmail();
+        vaildationName();
+        if(!emailInvalid && !nameInvalid){
+            AuthActions.signUp(emailValue,nameValue);
+        }else{
+            console.log(123);
+        }
+    };
+
     return (
         <ScrollView contentContainerStyle={{
             flexGrow:1,
@@ -44,7 +54,7 @@ export const RegisterScreen = props => {
                     <FormControl isInvalid={nameInvalid}>
                         <FormControl.Label>Name</FormControl.Label>
                         <Input 
-                        placeholder='name' 
+                        placeholder='name'
                         onChangeText={text=>setNameValue(text)}
                         onEndEditing={vaildationName}
                         />
@@ -60,8 +70,15 @@ export const RegisterScreen = props => {
                         <FormControl.ErrorMessage>{emailInvalidText}</FormControl.ErrorMessage>
                     </FormControl>
                     <View flexDirection='row' justifyContent='space-between'>
-                        <Button>Register</Button>
-                        <Button colorScheme='dark' onPress={()=>props.navigation.replace('Login')}>Login</Button>
+                        <Button 
+                        colorScheme='green' 
+                        onPress={enter}
+                        >Register</Button>
+
+                        <Button 
+                        colorScheme='dark' 
+                        onPress={()=>props.navigation.replace('Login')}
+                        >Login</Button>
                     </View>
                 </View>
             </Center>

@@ -6,12 +6,28 @@ import axios from "axios";
 
 
 export const signIn = (email,password) => {
-    const res = fetch('http://127.0.0.1:8000/api/signup')
-    .then((response) => response.json())
-    .then((json) => console.log(json)); 
+    const res = fetch('http://192.168.88.246:8000/api/login',
+    {
+        method:'POST',
+        body: JSON.stringify({
+            email:email,
+            password:password
+        })
+    })
+    .then((response)=>response.text())
+    .then((re)=>console.log(re));
     
 }
 
 export const signUp = (email,password) => {
-
+    const res = fetch('http://192.168.88.246:8000/api/register',
+    {
+        method:'POST',
+        body: JSON.stringify({
+            email:email,
+            password:password
+        })
+    })
+    .then((response)=>response.text())
+    .then((re)=>console.log(re));
 }
