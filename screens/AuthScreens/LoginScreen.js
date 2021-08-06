@@ -2,9 +2,9 @@ import React,{useEffect, useState} from 'react';
 import { Text, View, FormControl, ScrollView, Center, Button, Input } from 'native-base';
 import Size from '../../constants/Size'
 import * as AuthActions from '../../store/actions/auth';
+import { NarrowBig } from '../../constants/Narrow';
 
 export const LoginScreen = props => {
-    const [formInvalid, setFormInvalid] = useState(true);
     const [emailValue, setEmailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [emailInvalid, setEmailInvalid] = useState(false);
@@ -13,7 +13,7 @@ export const LoginScreen = props => {
     const [passwordInvalidText,setPasswordInvalidText] = useState('');
 
     let screen = Size();
-    let nerrow = NerrowBig();
+    let narrow = NarrowBig();
 
     const vaildationEmail = () => {
         if(emailValue < 1 || !emailValue.includes('@') || !emailValue.includes('.')){
@@ -23,8 +23,10 @@ export const LoginScreen = props => {
             }else{
                 setEmailInvalidText('Email field must be email')
             }
+            return false;
         }else{
             setEmailInvalid(false);
+            return true;
         }
     }
 
@@ -32,26 +34,28 @@ export const LoginScreen = props => {
         if(passwordValue < 6 ){
             setPasswordInvalid(true);
             setPasswordInvalidText('Password must contain at least 8 characters')
+            return false;
         }else{
             setPasswordInvalid(false);
+            return true;
         }
     }
 
 
-    useEffect(() => {
-        if(!emailInvalid && !passwordInvalid){
-            setFormInvalid(false);
-        }else{
-            setFormInvalid(true);
+    function enter(){
+        const e = vaildationEmail();
+        const p = vaildationPassword();
+        if(e && p){
+            AuthActions.signIn(emailValue,passwordValue);
         }
-    }, [emailInvalid,passwordInvalid]);
+    }
 
     return (
         <ScrollView contentContainerStyle={{
             flexGrow:1,
         }}>
             <Center py={10} flex={1} bg='green.500'>
-                <View bg='white' width={screen.width > 600 ? 400 : 300} shadow={8} px={6} py={5} rounded='lg'>
+                <View bg='white' width={narrow ? screen.width / 1.3 : 400} shadow={8} px={6} py={5} rounded='lg'>
                     <FormControl isInvalid={emailInvalid}>
                         <FormControl.Label>Email</FormControl.Label>
                         <Input 
@@ -72,9 +76,8 @@ export const LoginScreen = props => {
                     </FormControl>
                     <View flexDirection='row' justifyContent='space-between'>
                         <Button 
-                        disabled={formInvalid}
                         colorScheme='green' 
-                        onPress={()=>AuthActions.signIn(emailValue,passwordValue)}
+                        onPress={enter}
                         >Login</Button>
 
                         <Button 

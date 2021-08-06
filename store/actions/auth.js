@@ -11,7 +11,7 @@ export const signIn = (email,password) => {
         method:'POST',
         body: JSON.stringify({
             email:email,
-            password:password
+            password:password,
         })
     })
     .then((response)=>response.text())
@@ -19,12 +19,13 @@ export const signIn = (email,password) => {
     
 }
 
-export const signUp = (email,password) => {
+export const signUp = (email,name,password) => {
     const res = fetch('http://192.168.88.246:8000/api/register',
     {
         method:'POST',
         body: JSON.stringify({
             email:email,
+            name:name,
             password:password
         })
     })

@@ -10,7 +10,6 @@ export const AuthNavigation = props => {
 
     return (
         <NavigationContainer>
-            {props.isSignedIn == true ? 
             <Stack.Navigator screenOptions={{
                 headerLeft:null,
                 headerTitleAlign:'center',
@@ -22,11 +21,6 @@ export const AuthNavigation = props => {
                 <Stack.Screen name='Login' component={LoginScreen} />
                 <Stack.Screen name='Register' component={RegisterScreen} />
             </Stack.Navigator>
-            : 
-            <Stack.Navigator>
-                <Stack.Screen name='Home' component={HomeScreen} />
-            </Stack.Navigator>
-            }
         </NavigationContainer>
     )
 }

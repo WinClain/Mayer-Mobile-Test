@@ -1,7 +1,7 @@
 import Size from "./Size";
 import { useState, useEffect } from "react";
 
-export const NerrowBig = () => {
+export const NarrowBig = () => {
     let screen = Size();
     const [nerrow,setNerrow] = useState(screen.width > 600 ? false : true);
 
@@ -17,7 +17,7 @@ export const NerrowBig = () => {
     return nerrow;
 }
 
-export const NerrowSmall = () => {
+export const NarrowSmall = () => {
     let screen = Size();
     const [nerrow,setNerrow] = useState(screen.width > 400 ? false : true);
 
