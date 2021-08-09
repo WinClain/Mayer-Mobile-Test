@@ -9,7 +9,6 @@ export const AuthNavigation = props => {
     const Stack = createStackNavigator();
 
     return (
-        <NavigationContainer>
             <Stack.Navigator screenOptions={{
                 headerLeft:null,
                 headerTitleAlign:'center',
@@ -21,7 +20,6 @@ export const AuthNavigation = props => {
                 <Stack.Screen name='Login' component={LoginScreen} />
                 <Stack.Screen name='Register' component={RegisterScreen} />
             </Stack.Navigator>
-        </NavigationContainer>
     )
 }
 

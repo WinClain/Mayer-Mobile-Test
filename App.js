@@ -1,8 +1,18 @@
 import React,{useState} from 'react';
-import AuthNavigation from './navigation/AuthNavigation';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import {NativeBaseProvider, Text,Center, extendTheme} from 'native-base';
+import AppNavigation from './navigation/AppNavigation';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import AuthReducer from './store/reducers/auth';
+import thunk from 'redux-thunk';
+
+const rootReducer = combineReducers({
+    auth:AuthReducer,
+})
+
+const store = createStore(rootReducer,applyMiddleware(thunk))
 
 const loadAsync = () => {
     return Font.loadAsync({
@@ -16,7 +26,6 @@ const loadAsync = () => {
 
 export default function App() {
     const [dataLoad,setDataLoad] = useState(false);
-    const [userSignedIn,setUserSignedIn] = useState(true);
 
     const appTheme = extendTheme({
         components:{
@@ -41,7 +50,9 @@ export default function App() {
     }
     return (
         <NativeBaseProvider theme={appTheme}>
-            <AuthNavigation isSignedIn={userSignedIn}/>
+            <Provider store={store}>
+                <AppNavigation />
+            </Provider>
         </NativeBaseProvider>
     );
 }

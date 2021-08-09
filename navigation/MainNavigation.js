@@ -2,17 +2,22 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from '../screens/HomeScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AsyncStorage } from 'react-native';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export const MainNamvigation = () => {
+export const MainNavigation = () => {
 
+
+    checkUserAuth();
 
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name='Home' component={HomeScreen}/>
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Tab.Navigator>
+            <Tab.Screen name='Home' component={HomeScreen}/>
+        </Tab.Navigator>
     )
+
 }
+
+export default MainNavigation;

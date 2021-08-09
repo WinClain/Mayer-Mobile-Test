@@ -26,6 +26,7 @@ export const RegisterScreen = props => {
 
     let screen = Size();
     let narrow = NarrowBig();
+    const dispatch = useDispatch();
 
     const vaildationEmail = () => {
         if(emailValue < 1 || !emailValue.includes('@') || !emailValue.includes('.')){
@@ -57,7 +58,7 @@ export const RegisterScreen = props => {
         const e = vaildationEmail();
         const n = vaildationName();
         if(e && n){
-            AuthActions.signUp(emailValue,nameValue,passwordValue)
+            dispatch(AuthActions.signUp(emailValue,nameValue,passwordValue));
         }
     }
 

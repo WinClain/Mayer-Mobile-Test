@@ -3,6 +3,7 @@ import { Text, View, FormControl, ScrollView, Center, Button, Input } from 'nati
 import Size from '../../constants/Size'
 import * as AuthActions from '../../store/actions/auth';
 import { NarrowBig } from '../../constants/Narrow';
+import { useDispatch } from 'react-redux';
 
 export const LoginScreen = props => {
     const [emailValue, setEmailValue] = useState('');
@@ -40,13 +41,13 @@ export const LoginScreen = props => {
             return true;
         }
     }
+    const dispatch = useDispatch();
 
-
-    function enter(){
+    const enter = () =>{
         const e = vaildationEmail();
         const p = vaildationPassword();
         if(e && p){
-            AuthActions.signIn(emailValue,passwordValue);
+            dispatch(AuthActions.signIn(emailValue,passwordValue));
         }
     }
 

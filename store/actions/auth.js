@@ -1,24 +1,53 @@
-export const SIGN_UP = 'SIGN_UP';
+export const AUTHENTICATE = 'AUTHENTICATE';
 export const SIGN_IN = 'SIGN_IN';
 export const LOGOUT = 'LOGOUT';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import URL from '../../constants/URL';
+import { AsyncStorage } from 'react-native';
 
-export const signIn = (email,password) => {
-    const res = fetch('http://192.168.88.246:8000/api/login',
-    {
-        method:'POST',
-        body: JSON.stringify({
-            email:email,
-            password:password,
-        })
-    })
-    .then((response)=>response.text())
-    .then((re)=>console.log(re));
-    
+export const auth = (user, userProfile) => {
+    return dispatch => {
+        dispatch({type:AUTHENTICATE,user:user,userProfile:userProfile});
+    }
 }
 
-export const signUp = (email,name,password) => {
-    const res = fetch('http://192.168.88.246:8000/api/register',
+export const signIn = (email, password) => {
+    return async dispatch => {
+        try{
+            const response = await fetch(
+                'http://'+ URL +':8000/api/login',
+                {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                })
+                }
+            );
+        
+            const resData = await response.json();
+            if(resData.status === 'error'){
+                throw resData.error;
+            }
+
+            dispatch(
+                auth(
+                resData.user,
+                resData.userProfile,
+                )
+            );
+
+            saveData(resData.user,resData.userProfile);
+        }catch (e){
+            console.log(e);
+        }
+    };
+};
+
+export const signUp =  async (email,name,password) => {
+    const res = fetch('http://'+ URL +':8000/api/register',
     {
         method:'POST',
         body: JSON.stringify({
@@ -27,6 +56,9 @@ export const signUp = (email,name,password) => {
             password:password
         })
     })
-    .then((response)=>response.text())
-    .then((re)=>console.log(re));
+}
+
+const saveData = (user,userProfile) => {
+    AsyncStorage.setItem('user',JSON.stringify(user));
+    AsyncStorage.setItem('userProfile',JSON.stringify(userProfile));
 }
