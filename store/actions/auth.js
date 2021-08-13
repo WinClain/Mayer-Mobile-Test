@@ -76,14 +76,11 @@ export const signUp = (email,name,password) => {
 }
 
 export const logout = () => {
-    console.log(123);
-    
-        return async dispatch => {
-            await AsyncStorage.removeItem('user');
-            await AsyncStorage.removeItem('userProfile');
-            dispatch({type:LOGOUT})
-        };
-        
+    return async dispatch => {
+        await AsyncStorage.removeItem('user');
+        await AsyncStorage.removeItem('userProfile');
+        dispatch({type:LOGOUT});
+    };
 }
 
 const saveData = (user,userProfile) => {

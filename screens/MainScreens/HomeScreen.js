@@ -12,7 +12,6 @@ export const HomeScreen = props => {
         <Center flex={1}>
             {user ? <Text>{user.name}</Text> : ''}
             <Text>You're Login</Text>
-            
         </Center>
     )
 }
