@@ -4,7 +4,7 @@ export const LOGOUT = 'LOGOUT';
 import URL from '../../constants/URL';
 import { AsyncStorage } from 'react-native';
 
-export const auth = (user, userProfile) => {
+export const authenticate = (user, userProfile) => {
     return dispatch => {
         dispatch({type:AUTHENTICATE,user:user,userProfile:userProfile});
     }
@@ -12,7 +12,6 @@ export const auth = (user, userProfile) => {
 
 export const signIn = (email, password) => {
     return async dispatch => {
-        try{
             const response = await fetch(
                 'http://'+ URL +':8000/api/login',
                 {
@@ -29,33 +28,62 @@ export const signIn = (email, password) => {
         
             const resData = await response.json();
             if(resData.status === 'error'){
-                throw resData.error;
+                throw new Error(resData.error);
             }
 
             dispatch(
-                auth(
+                authenticate(
                 resData.user,
                 resData.userProfile,
                 )
             );
 
             saveData(resData.user,resData.userProfile);
-        }catch (e){
-            console.log(e);
-        }
     };
 };
 
-export const signUp =  async (email,name,password) => {
-    const res = fetch('http://'+ URL +':8000/api/register',
-    {
-        method:'POST',
-        body: JSON.stringify({
-            email:email,
-            name:name,
-            password:password
-        })
-    })
+export const signUp = (email,name,password) => {
+    return async dispatch => {
+            const response = await fetch(
+                'http://'+ URL +':8000/api/register',
+                {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name:name,
+                    email: email,
+                    password: password,
+                })
+                }
+            );
+        
+            const resData = await response.json();
+            if(resData.status === 'error'){
+                throw new  Error(resData.error);
+            }
+
+            dispatch(
+                authenticate(
+                resData.user,
+                resData.userProfile,
+                )
+            );
+
+            saveData(resData.user,resData.userProfile);
+    };
+}
+
+export const logout = () => {
+    console.log(123);
+    
+        return async dispatch => {
+            await AsyncStorage.removeItem('user');
+            await AsyncStorage.removeItem('userProfile');
+            dispatch({type:LOGOUT})
+        };
+        
 }
 
 const saveData = (user,userProfile) => {

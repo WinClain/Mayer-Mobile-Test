@@ -3,6 +3,7 @@ import { View, Text, FormControl, ScrollView, Center, Button, Input, SimpleGrid 
 import Size from '../../constants/Size'
 import * as AuthActions from '../../store/actions/auth';
 import { NarrowBig } from '../../constants/Narrow';
+import { useDispatch } from 'react-redux';
 
 const ChoiceCompany = () => {
     return (
@@ -54,11 +55,16 @@ export const RegisterScreen = props => {
         }
     }
 
-    function enter(){
+    const enter = async() => {
         const e = vaildationEmail();
         const n = vaildationName();
         if(e && n){
-            dispatch(AuthActions.signUp(emailValue,nameValue,passwordValue));
+            try{
+                await dispatch(AuthActions.signUp(emailValue,nameValue,passwordValue));
+                props.navigation.navigate('Main');
+            }catch(e){
+                console.log(e);
+            }
         }
     }
 

@@ -41,6 +41,11 @@ export default function App() {
                 baseStyle:{
                     padding:2
                 }
+            },
+            Input:{
+                defaultProps:{
+                    autoCapitalize:'none'
+                }
             }
         }
     })

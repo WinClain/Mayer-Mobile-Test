@@ -1,9 +1,9 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from '../screens/AuthScreens/LoginScreen';
 import RegisterScreen from '../screens/AuthScreens/RegisterScreen';
-import HomeScreen from '../screens/HomeScreen';
+import {useDispatch} from 'react-redux';
+import {AsyncStorage} from 'react-native';
 
 export const AuthNavigation = props => {
     const Stack = createStackNavigator();

@@ -43,11 +43,16 @@ export const LoginScreen = props => {
     }
     const dispatch = useDispatch();
 
-    const enter = () =>{
+    const enter = async () =>{
         const e = vaildationEmail();
         const p = vaildationPassword();
         if(e && p){
-            dispatch(AuthActions.signIn(emailValue,passwordValue));
+            try{
+                await dispatch(AuthActions.signIn(emailValue,passwordValue));
+                props.navigation.navigate('Main');
+            }catch(e){
+                console.log(e);
+            }
         }
     }
 

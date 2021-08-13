@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "test.ms.store"
     },
     "web": {
       "favicon": ""

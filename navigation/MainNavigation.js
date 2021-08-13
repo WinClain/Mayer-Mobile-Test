@@ -1,20 +1,19 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from '../screens/HomeScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AsyncStorage } from 'react-native';
+import HomeScreen from '../screens/MainScreens/HomeScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import LogoutScreen from '../screens/LogoutScreen';
+import UserNavigation from './MainNavigations/UserNavigation';
 
 const Tab = createBottomTabNavigator();
 
 export const MainNavigation = () => {
 
-
-    checkUserAuth();
-
     return (
-        <Tab.Navigator>
-            <Tab.Screen name='Home' component={HomeScreen}/>
+        <Tab.Navigator screenOptions={{
+
+        }}>
+            <Tab.Screen name='User' component={UserNavigation}/>
         </Tab.Navigator>
     )
 
