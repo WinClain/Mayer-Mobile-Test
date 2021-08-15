@@ -1,17 +1,17 @@
 import React,{useEffect} from 'react';
 import { View, Text } from 'native-base';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, DevSettings} from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as AuthActions from '../store/actions/auth'
 
 export const LogoutScreen = props => {
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         const tryLogout = async () => {
-            dispatch(AuthActions.logout());
+            await dispatch(AuthActions.logout());
+            props.navigation.navigate('Auth');
         }
-
         tryLogout();
     },[dispatch])
 

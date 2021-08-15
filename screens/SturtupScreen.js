@@ -10,18 +10,16 @@ export const SturtupScreen = props => {
     useEffect(()=>{
         const tryLogin = async () => {
             const result = await AsyncStorage.getItem('user');
-            if(!result){
+            if(result === null){
                 props.navigation.navigate('Auth');
                 return;
             } 
 
             const user = await JSON.parse(result);
             const profile = await AsyncStorage.getItem('userProfile');
-            const userProfile = await JSON.parse(profile);
-            console.log(123);
-            
+            const userProfile = await JSON.parse(profile);            
 
-            dispatch(AuthActions.authenticate(user,userProfile));
+            await dispatch(AuthActions.authenticate(user,userProfile));
             props.navigation.navigate('Main');
         }
 

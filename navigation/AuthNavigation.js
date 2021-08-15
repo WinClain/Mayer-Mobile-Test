@@ -2,8 +2,6 @@ import React,{useEffect} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../screens/AuthScreens/LoginScreen';
 import RegisterScreen from '../screens/AuthScreens/RegisterScreen';
-import {useDispatch} from 'react-redux';
-import {AsyncStorage} from 'react-native';
 
 export const AuthNavigation = props => {
     const Stack = createStackNavigator();

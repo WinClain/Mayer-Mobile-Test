@@ -76,11 +76,9 @@ export const signUp = (email,name,password) => {
 }
 
 export const logout = () => {
-    return async dispatch => {
-        await AsyncStorage.removeItem('user');
-        await AsyncStorage.removeItem('userProfile');
-        dispatch({type:LOGOUT});
-    };
+        AsyncStorage.removeItem('user');
+        AsyncStorage.removeItem('userProfile');
+        return {type:LOGOUT};
 }
 
 const saveData = (user,userProfile) => {
