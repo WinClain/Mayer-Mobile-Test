@@ -34,7 +34,7 @@ export const LoginScreen = props => {
     const vaildationPassword = () => {
         if(passwordValue < 6 ){
             setPasswordInvalid(true);
-            setPasswordInvalidText('Password must contain at least 8 characters')
+            setPasswordInvalidText('Password must contain at least 6 characters')
             return false;
         }else{
             setPasswordInvalid(false);
@@ -74,6 +74,7 @@ export const LoginScreen = props => {
                     <FormControl my={4} isInvalid={passwordInvalid}>
                         <FormControl.Label>Password</FormControl.Label>
                         <Input 
+                        type='password'
                         placeholder='password' 
                         onChangeText={text=>setPasswordValue(text)}
                         onEndEditing={vaildationPassword}

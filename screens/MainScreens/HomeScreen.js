@@ -7,10 +7,11 @@ import { State } from 'react-native-gesture-handler';
 
 export const HomeScreen = props => {
     const [user,setUser] = useState(useSelector(state => state.auth.user));
+    console.log(user)
     
     return (
         <Center flex={1}>
-            <Text>{user.name}</Text>
+            <Text>{user.username}</Text>
             <Button onPress={()=>props.navigation.navigate('Logout')}>Logout</Button>
             <Text>You're Login</Text>
         </Center>

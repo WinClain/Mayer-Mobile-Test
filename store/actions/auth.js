@@ -12,8 +12,11 @@ export const authenticate = (user, userProfile) => {
 
 export const signIn = (email, password) => {
     return async dispatch => {
+            let data = new URLSearchParams();
+            data.append('email',email);
+            data.append('password',password);
             const response = await fetch(
-                'http://'+ URL +':8000/api/login',
+                'https://ms-wallet24.de/connection/mobile-app/sign-in',
                 {
                 method: 'POST',
                 headers: {
@@ -25,16 +28,17 @@ export const signIn = (email, password) => {
                 })
                 }
             );
-        
             const resData = await response.json();
+            console.log(resData);
+            console.log(resData['user']);
             if(resData.status === 'error'){
                 throw new Error(resData.error);
             }
 
             dispatch(
                 authenticate(
-                resData.user,
-                resData.userProfile,
+                    resData.user,
+                    resData.userProfile,
                 )
             );
 
@@ -45,7 +49,7 @@ export const signIn = (email, password) => {
 export const signUp = (email,name,password) => {
     return async dispatch => {
             const response = await fetch(
-                'http://'+ URL +':8000/api/register',
+                'https://ms-wallet24.de/connection/mobile-app/sign-up',
                 {
                 method: 'POST',
                 headers: {
